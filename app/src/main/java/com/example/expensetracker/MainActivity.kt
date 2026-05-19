@@ -38,6 +38,9 @@ fun Greeting( modifier: Modifier = Modifier) {
     var expenses by remember{
         mutableStateOf(listOf<String>())
     }
+    val total=expenses.sumOf {
+        it.removePrefix("₹").toIntOrNull() ?: 0
+    }
 
     Column(
         modifier=modifier.fillMaxSize().padding(16.dp)
@@ -47,6 +50,11 @@ fun Greeting( modifier: Modifier = Modifier) {
             fontSize=28.sp
         )
         Spacer(modifier=Modifier.height(20.dp))
+
+        Text(
+            text = "Total: ₹$total",
+            fontSize = 22.sp
+        )
 
         OutlinedTextField(
             value=amount,
