@@ -13,6 +13,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.Alignment
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import com.example.expensetracker.ui.theme.ExpenseTrackerTheme
 
 class MainActivity : ComponentActivity() {
@@ -81,26 +83,28 @@ fun Greeting( modifier: Modifier = Modifier) {
         }
         Spacer(modifier = Modifier.height(20.dp))
 
-        expenses.forEach {
+        LazyColumn {
+            items(expenses){expense->
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 4.dp),
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp),
 
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = it,
-                    fontSize = 22.sp
-                )
-                Button(
-                    onClick = {
-                        expenses = expenses - it
-                    }
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text("Delete")
+                    Text(
+                        text = expense,
+                        fontSize = 22.sp
+                    )
+                    Button(
+                        onClick = {
+                            expenses = expenses - expense
+                        }
+                    ) {
+                        Text("Delete")
+                    }
                 }
             }
         }
