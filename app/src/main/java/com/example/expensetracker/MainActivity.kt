@@ -5,12 +5,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.Alignment
 import com.example.expensetracker.ui.theme.ExpenseTrackerTheme
 
 class MainActivity : ComponentActivity() {
@@ -81,12 +83,26 @@ fun Greeting( modifier: Modifier = Modifier) {
 
         expenses.forEach {
 
-            Text(
-                text = it,
-                fontSize = 22.sp
-            )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp),
 
-            Spacer(modifier = Modifier.height(8.dp))
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = it,
+                    fontSize = 22.sp
+                )
+                Button(
+                    onClick = {
+                        expenses = expenses - it
+                    }
+                ) {
+                    Text("Delete")
+                }
+            }
         }
     }
 }
